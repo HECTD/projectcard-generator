@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-import "./App.css";
 import getCard from "./hooks/getCard";
 import { setInfo } from "./hooks/setInfo";
 
