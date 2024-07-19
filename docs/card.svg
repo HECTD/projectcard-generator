@@ -1,0 +1,26 @@
+<svg width="1824" height="293"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" overflow="hidden">
+  <defs>
+    <style>
+      <![CDATA[@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");]]>
+    </style>
+  </defs>
+  <g transform="translate(-128 -440)">
+    <g>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="700" font-stretch="normal" font-size="55" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 475.031 524)" id="title1">企画名企画名企画名企画名</text>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="700" font-stretch="normal" font-size="55" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 475.031 590)" id="title2">企画名企画名企画名企画名</text>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 1174.18 498)" id="description1">あいうえおカキクケコあいうえおカキクケコ</text>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 1174.18 548)" id="description2">あいうえおカキクケコあいうえおカキクケコ</text>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 1174.18 598)" id="description3">あいうえおカキクケコあいうえおカキクケコ</text>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 1174.18 648)" id="description4">あいうえおカキクケコあいうえおカキクケコ</text>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 1174.18 698)" id="description5">あいうえおカキクケコあいうえおカキクケコ</text>
+      <rect x="130.5" y="468.5" width="312" height="234" stroke="#252525" stroke-width="1.14583" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="8" stroke-opacity="1" fill="#BFBFBF" fill-opacity="1"/>
+      <rect x="477" y="641" width="85.9999" height="42.9999" fill="#252525" fill-opacity="1" id="locationBG"/>
+      <text fill="#FFFFFF" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 480.125 675)" id="location1">m</text>
+      <text fill="#FFFFFF" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 513.927 675)" id="location2">n</text>
+      <text fill="#FFFFFF" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 536.271 675)" id="location3">b</text>
+      <text fill="#252525" fill-opacity="1" font-family="Noto Sans JP,Noto Sans JP_MSFontService,sans-serif" font-style="normal" font-variant="normal" font-weight="400" font-stretch="normal" font-size="37" text-anchor="start" direction="ltr" writing-mode="lr-tb" unicode-bidi="normal" text-decoration="none" transform="matrix(1 0 0 1 609.514 675)" id="organization">企画運営者企画運営者企画運営</text>
+    </g>
+  </g>
+</svg>
