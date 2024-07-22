@@ -30,10 +30,23 @@ function App() {
     }
   }, [title, description, organization, location, isLoaded, card]);
 
+  function handleDownload() {
+    if (card && cardElement.current) {
+      const svgData = new XMLSerializer().serializeToString(card);
+      const blob = new Blob([svgData], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "card.svg";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  }
+
   return (
     <>
       <div>
-        <h1>React SVG</h1>
+        <h1>企画カードを作ろう！</h1>
         <input
           type="text"
           placeholder="Title"
@@ -62,6 +75,7 @@ function App() {
           onChange={(e) => setLocation(e.target.value)}
         />
         <div ref={cardElement}></div>
+        <button onClick={handleDownload}>Download</button>
       </div>
     </>
   );

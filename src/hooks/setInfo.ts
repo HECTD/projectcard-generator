@@ -37,13 +37,10 @@ export function setInfo(
   if (organizationElement) {
     organizationElement.textContent = organization.slice(0, 14);
   }
-  // 場所: 3文字 1文字目はlocation1、2文字目はlocation2、3文字目はlocation3
   // 1文字目の数字に応じて背景(locationBG)の色を変える
-  const location1 = svgDocument.getElementById("location1");
-  const location2 = svgDocument.getElementById("location2");
-  const location3 = svgDocument.getElementById("location3");
+  const locationElement = svgDocument.getElementById("location");
   const locationBG = svgDocument.getElementById("locationBG");
-  if (location1 && location2 && location3 && locationBG) {
+  if (location && locationBG) {
     switch (Number(location.slice(0, 1))) {
       case 1:
         locationBG.setAttribute("fill", "#7445aa");
@@ -67,9 +64,7 @@ export function setInfo(
         locationBG.setAttribute("fill", "#252525");
         break;
     }
-    location1.textContent = location.slice(0, 1);
-    location2.textContent = location.slice(1, 2);
-    location3.textContent = location.slice(2);
+    locationElement.textContent = location;
   }
   return true;
 }
