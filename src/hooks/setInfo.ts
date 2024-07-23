@@ -3,7 +3,8 @@ export function setInfo(
   title: string,
   description: string,
   organization: string,
-  location: string
+  location: string,
+  image: string | ArrayBuffer | null
 ) {
   if (typeof svgDocument?.querySelectorAll !== "function") return false;
   // タイトル：1行12文字、最大2行 1行目はtitle1、2行目はtitle2
@@ -65,6 +66,17 @@ export function setInfo(
         break;
     }
     locationElement.textContent = location;
+  }
+  // 画像を表示
+  const imageElement = svgDocument.getElementById("image");
+  if (imageElement && image) {
+    if (typeof image === "string") {
+      imageElement.setAttribute("href", image);
+    } else {
+      const blob = new Blob([image], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+      imageElement.setAttribute("href", url);
+    }
   }
   return true;
 }
