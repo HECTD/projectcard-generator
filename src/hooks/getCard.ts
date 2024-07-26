@@ -4,7 +4,7 @@ export default async function getCard(): Promise<SVGSVGElement> {
     "image/svg+xml"
   ).childNodes[0] as SVGSVGElement;
   await fetch(
-    `https://raw.githubusercontent.com/HECTD/projectcard-generator/main/public/card2.svg`
+    `https://raw.githubusercontent.com/HECTD/projectcard-generator/main/public/card3.svg`
   ).then((res) => {
     const newHeaders = new Headers(res.headers);
     newHeaders.set("Access-Control-Allow-Origin", "*");
