@@ -30,7 +30,7 @@ export default function ProjectCard(props: { project: Project }) {
       case "6":
         return "#ef810f";
       case "7":
-        return "#58ce91";
+        return "#008009";
       default:
         return "#252525";
     }
@@ -104,7 +104,9 @@ export default function ProjectCard(props: { project: Project }) {
                     fill: "white",
                   }}
                 >
-                  {props.project.location[0].number}
+                  {props.project.location[1]
+                    ? props.project.location[1].number
+                    : props.project.location[0].number}
                 </text>
               </g>
             </g>
@@ -122,7 +124,9 @@ export default function ProjectCard(props: { project: Project }) {
                   fontSize: "125.644px",
                 }}
               >
-                {props.project.location[0].name}
+                {props.project.location[1]
+                  ? props.project.location[1].name
+                  : props.project.location[0].name}
               </text>
             </g>
           </g>
@@ -154,7 +158,7 @@ export default function ProjectCard(props: { project: Project }) {
                       fill: "white",
                     }}
                   >
-                    {props.project.location[1].number}
+                    {props.project.location[0].number}
                   </text>
                 </g>
               </g>
@@ -173,7 +177,7 @@ export default function ProjectCard(props: { project: Project }) {
                     fontSize: "125.644px",
                   }}
                 >
-                  {props.project.location[1].name}
+                  {props.project.location[0].name}
                 </text>
               </g>
             </g>
