@@ -183,25 +183,23 @@ export default function ProjectCard(props: { project: Project }) {
             </g>
           )}
           {/* 企画画像 */}
-          <g
-            id="企画画像"
-            transform="matrix(0.254381,0,0,0.318847,54.3867,3.76004)"
-          >
+          <g id="企画画像" transform="translate(90,150) scale(1)">
             <clipPath id="clip">
-              <path
-                d="M1360,486.5L1360,1143.5C1360,1163.64 1339.5,1180 1314.25,1180L185.75,1180C160.5,1180 140,1163.64 140,1143.5L140,486.5C140,466.355 160.5,450 185.75,450L1314.25,450C1339.5,450 1360,466.355 1360,486.5Z"
-                style={{ fill: "rgb(235,235,235)" }}
+              <rect
+                x="0"
+                y="0"
+                rx="15"
+                width="306.7"
+                height="230"
+                style={{ fill: "rgb(235,235,235)", aspectRatio: "3/4" }}
               />
             </clipPath>
             {props.project.thumbnail && (
               <image
-                x="170"
-                y="350"
                 xlinkHref={props.project.thumbnail as string}
                 style={{ aspectRatio: "3/4" }}
                 clipPath="url(#clip)"
-                height="900px"
-                width="1200px"
+                height="100%"
               />
             )}
           </g>
