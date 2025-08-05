@@ -1,10 +1,10 @@
 "use client";
 import ProjectCard, { Project } from "@/components/projectCard";
-import { Dropzone } from "@yamada-ui/dropzone";
-import { Box, Button, FileInput, FormControl, Heading, HStack, Input, Textarea, VStack } from "@yamada-ui/react";
+import { Dropzone, DropzoneAccept, DropzoneIdle } from "@yamada-ui/dropzone";
+import { Box, Button, Card, CardBody, CardHeader, Center, FileInput, FormControl, Heading, HStack, Input, ScrollArea, Text, Textarea, VStack } from "@yamada-ui/react";
 import { locations } from "@/assets/locations";
 
-import { useCallback, useRef, useState } from "react";
+import { JSX, useCallback, useRef, useState } from "react";
 import { number } from "framer-motion";
 
 export default function Home() {
@@ -86,45 +86,55 @@ function parseCSV(csv: string): string[][] {
   // CSVファイル読み込みハンドラ
   // 団体名,企画名,実施場所ID(カンマ区切り),タグ(カンマ区切り),見出し,紹介文
   // カンマ区切りの項目はダブルクオーテーションでエスケープ済み
+  function loadCSV(file: File | null) {
+    if (!file) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => {
+      const csvText = reader.result as string;
+      const csvArray = parseCSV(csvText);
+      console.log(csvArray);
+      const projects: Project[] = csvArray.map((row) => {
+        const [organizationName, projectTitle, locationIds, tags, heading, text] = row;
+        const locationsArray = locationIds
+          .split(",")
+          .map((id) => {
+            const location = locations.find((loc) => loc.id === id);
+            return location ? { number: location.number, name: location.name } : null;
+          })
+          .filter((loc): loc is { number: string; name: string } => loc !== null);
+        return {
+          organizationName,
+          projectTitle,
+          thumbnail: "",
+          tags: tags.split(",").map((tag) => tag.trim()),
+          description: {
+            heading,
+            text,
+          },
+          location: locationsArray,
+        };
+      });
+      // 場所順にソート
+      projects.sort((a, b) => {
+        const aLocation = a.location[0]?.number || "";
+        const bLocation = b.location[0]?.number || "";
+        return aLocation.localeCompare(bLocation);
+      });
+      setWorkingProjects(projects);
+      setCurrentProject(projects[0]);
+    }
+  }
   const handlerChangeCSVFileInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target?.files?.[0];
-      if (!file) {
-        return;
-      }
-      const reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = () => {
-        const csvText = reader.result as string;
-        const csvArray = parseCSV(csvText);
-        console.log(csvArray);
-        const projects: Project[] = csvArray.map((row) => {
-          const [organizationName, projectTitle, locationIds, tags, heading, text] = row;
-          const locationsArray = locationIds
-            .split(",")
-            .map((id) => {
-              const location = locations.find((loc) => loc.id === id);
-              return location ? { number: location.number, name: location.name } : null;
-            })
-            .filter((loc): loc is { number: string; name: string } => loc !== null);
-          return {
-            organizationName,
-            projectTitle,
-            thumbnail: "",
-            tags: tags.split(",").map((tag) => tag.trim()),
-            description: {
-              heading,
-              text,
-            },
-            location: locationsArray,
-          };
-        });
-        setWorkingProjects(projects);
-        setCurrentProject(projects[0]);
-      };
+      const file = e.target?.files?.[0] || null;
+      loadCSV(file);
     },
     []
   );
+  
     function handleDownload() {
     console.log(projectCardElement.current);
     if (!projectCardElement.current) return;
@@ -168,6 +178,15 @@ function parseCSV(csv: string): string[][] {
     []
   );
   function handleNextProject() {
+    setWorkingProjects((prev) => {
+      if (prev.length === 0) {
+        return [currentProject];
+      }
+      if (!prev.includes(currentProject)) {
+        return [...prev, currentProject];
+      }
+      return prev;
+    });
     setCurrentProject((prev) => {
       const currentIndex = workingProjects.indexOf(prev);
       const nextIndex = (currentIndex + 1) % workingProjects.length;
@@ -175,6 +194,15 @@ function parseCSV(csv: string): string[][] {
     });
   }
   function handlePreviousProject() {
+    setWorkingProjects((prev) => {
+      if (prev.length === 0) {
+        return [currentProject];
+      }  
+      if (!prev.includes(currentProject)) {
+        return [...prev, currentProject];
+      }
+      return prev;
+    });
     setCurrentProject((prev) => {
       const currentIndex = workingProjects.indexOf(prev);
       const previousIndex =
@@ -184,13 +212,46 @@ function parseCSV(csv: string): string[][] {
   }
   const projectCardElement = useRef<HTMLDivElement>(null);
   return (
-    <Box p={4}>
-      <Box as={HStack}>
+    <Box p={4} w="100vw" >
+      <Box as={HStack} h="100%" w="100%">
         <Box>
-        <Heading>ProjectCard Generator</Heading>
-        <FormControl label="CSVファイルを選択">
-          <Dropzone  accept={[".csv"]} onChange={handlerChangeCSVFileInput}  >ここにCSVファイルをドラッグ＆ドロップ</Dropzone>
+          <Heading>ProjectCard Generator</Heading>
+          {currentProject.projectTitle==="企画名がここに入力されます" ? (
+            <FormControl label="CSVファイルを選択">
+              <Dropzone
+                accept={[".csv"]}
+                onChange={handlerChangeCSVFileInput}
+                onDropAccepted={(files) => loadCSV(files[0] ?? null)}
+            >
+              <DropzoneIdle> ここにCSVファイルをドラッグ＆ドロップ</DropzoneIdle>
+              <DropzoneAccept>ファイルを受け付けました。</DropzoneAccept>
+            </Dropzone>
+              
           </FormControl>
+          ) : (
+              <HStack> <Text>企画情報が読み込まれました。</Text><Button
+                onClick={() => {
+                  setCurrentProject({
+                    organizationName: "団体名がここに入力されます",
+                    projectTitle: "企画名がここに入力されます",
+                    thumbnail: "",
+                    tags: ["文化部","所要時間長", "販売あり", "大人も楽しめる"],
+                    description: {
+                      heading: "紹介文の見出しがここに入力されます",
+                      text: "ここに紹介文が入力されます。ここの内容は任意で変更できます。",
+                    },
+                    location: [
+                      {
+                        number: "2-4D",
+                        name: "高2-3教室",
+                      },
+                    ],
+                  });
+                  setWorkingProjects([]);
+                }}
+              >再選択</Button></HStack>
+
+          )}
         <VStack>
           <FormControl label="画像を選択">
           <FileInput
@@ -273,9 +334,50 @@ function parseCSV(csv: string): string[][] {
          </HStack>
         </VStack>
         </Box>
-        <Box ref={projectCardElement} flexGrow={1}>
-          <ProjectCard project={currentProject} />
-        </Box>
+        <VStack flexGrow={1} w="80%" h="100%">
+          <Box ref={projectCardElement} w="100%" flexGrow={1}><ProjectCard project={currentProject}/></Box>
+          <ScrollArea  maxW="100%"  p={2} overflow="scroll" pos="sticky" bottom={0} bg="white">
+            {!workingProjects.length && (
+              <Center h={"100%"}>
+                <Text>企画がありません。CSVファイルを読み込んでください。</Text>
+              </Center>
+            )}
+            <HStack>
+              {(() => {
+                let lastBuilding = "";
+                const cards: JSX.Element[] = [];
+                workingProjects.forEach((project, index) => {
+                  const locationNumber = project.location[0]?.number ?? "";
+                  const building = locationNumber.charAt(0);
+                  if (building && building !== lastBuilding) {
+                    cards.push(
+                      <Card key={`building-${building}-${index}`} minW="30px" minH="180px" p={2} bg="gray.100">
+                        <Center h="100%" w="100%">
+                          <Heading size="md">{`${building}号館`}</Heading>
+                        </Center>
+                      </Card>
+                    );
+                    lastBuilding = building;
+                  }
+                  cards.push(
+                    <Card key={index} p={2} minW="480px" minH="180px" onClick={() => setCurrentProject(project)}>
+                      <CardHeader>
+                        <VStack gap={0}>
+                          <Heading size="md">{project.projectTitle}</Heading>
+                          <Text>{project.organizationName}</Text>
+                        </VStack>
+                      </CardHeader>
+                      <CardBody>
+                        <ProjectCard project={project} />
+                      </CardBody>
+                    </Card>
+                  );
+                });
+                return cards;
+              })()}
+              </HStack>
+          </ScrollArea>
+        </VStack>
       </Box>
     </Box>
   );
